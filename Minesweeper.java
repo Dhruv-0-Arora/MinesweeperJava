@@ -1,15 +1,19 @@
-package Project2;
-
 import java.util.Random;
 
 public class Minesweeper {
-    private final int size;
-    private final int mines;
-    private final char[][] board;
-    private final boolean[][] mineLocations;
-    private boolean[][] revealed;
-    private boolean gameLost = false;
+    private final int size; // Size of the board
+    private final int mines; // Number of mines
+    private final char[][] board; // Board to display
+    private final boolean[][] mineLocations; // Locations of mines
+    private final boolean[][] revealed; // Revealed cells
+    private boolean gameLost = false; // Flag to check if the game is lost
 
+    /**
+     * Constructor for Minesweeper class
+     * 
+     * @param size
+     * @param mines
+     */
     public Minesweeper(int size, int mines) {
         this.size = size;
         this.mines = mines;
@@ -21,6 +25,9 @@ public class Minesweeper {
         calculateHints();
     }
 
+    /** 
+     * Initializes the board with empty cells
+     */
     private void initializeBoard() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -31,6 +38,9 @@ public class Minesweeper {
         }
     }
 
+    /** 
+     * Places mines randomly on the board
+     */
     private void placeMines() {
         Random random = new Random();
         int placedMines = 0;
@@ -44,6 +54,9 @@ public class Minesweeper {
         }
     }
 
+    /** 
+     * Calculates the hints for each cell 
+     */
     private void calculateHints() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -55,6 +68,9 @@ public class Minesweeper {
         }
     }
 
+    /** 
+     * Counts the number of adjacent mines for a given cell 
+     */
     private int countAdjacentMines(int row, int col) {
         int count = 0;
         for (int i = -1; i <= 1; i++) {
@@ -68,6 +84,9 @@ public class Minesweeper {
         return count;
     }
 
+    /** 
+     * Reveals the cell at the given row and column
+     */
     public void reveal(int row, int col) {
         if (row < 0 || row >= size || col < 0 || col >= size || revealed[row][col]) return;
         revealed[row][col] = true;
@@ -75,7 +94,7 @@ public class Minesweeper {
             gameLost = true;
             return;
         }
-        if (board[row][col] == '-') {
+        if (board[row][col] == '-') { 
             board[row][col] = ' ';
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
@@ -85,10 +104,23 @@ public class Minesweeper {
         }
     }
 
+    /**
+     * Checks if the cell at the given row and column is revealed or not
+     */
+    public boolean isRevealed(int row, int col) {
+        return revealed[row][col];
+    }
+
+    /** 
+     * Checks if the game is lost or not
+     */
     public boolean isGameLost() {
         return gameLost;
     }
 
+    /** 
+     * Checks if the game is won or not
+     */
     public boolean isGameWon() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -98,14 +130,22 @@ public class Minesweeper {
         return true;
     }
 
+    /**
+     * Returns the cell display, '-' if not revealed, or the cell value if revealed.
+     */
     public char getCellDisplay(int row, int col) {
         return revealed[row][col] ? board[row][col] : '-';
     }
 
+    /** 
+     * Returns the full cell display, including mines.
+     * '-' if not next to a number
+     */
     public char getFullCellDisplay(int row, int col) {
         return mineLocations[row][col] ? '*' : board[row][col];
     }
 
+    // Getter method for size
     public int getSize() {
         return size;
     }
