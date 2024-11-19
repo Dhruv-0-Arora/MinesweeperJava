@@ -1,5 +1,8 @@
 import java.util.Random;
 
+/** 
+ * Minesweeper class to represent the game using OOP
+ */
 public class Minesweeper {
     private final int size; // Size of the board
     private final int mines; // Number of mines

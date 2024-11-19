@@ -29,9 +29,6 @@ public class Project2 {
 
         /** Recursive case */
 
-        // TESTING PURPOSES ONLY
-        printFullBoard(game);
-
         // Print the board and ask for user input
         printBoard(game);
         System.out.print("Enter row and column (e.g., 1 2): ");
